@@ -1,0 +1,57 @@
+# ===== Variáveis de ambiente / credenciais (NUNCA versionar) =====
+.env
+.env.*
+!.env.example
+*.local
+
+# ===== Uploads enviados por usuários =====
+uploads/*
+!uploads/.gitkeep
+!uploads/equipments/.gitkeep
+
+# ===== Dependências =====
+/vendor/
+/node_modules/
+composer.lock
+package-lock.json
+
+# ===== Logs e cache =====
+*.log
+logs/
+*.cache
+.cache/
+
+# ===== Arquivos de configuração local / debug =====
+api/debug.php
+api/test-db.php
+api/check-env.php
+
+# ===== Sistema operacional =====
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ===== Editores / IDEs =====
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# ===== Backups e temporários =====
+*.bak
+*.tmp
+*.old
+*.orig
+*.sql
+*.zip
+*.tar.gz
