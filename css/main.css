@@ -118,11 +118,11 @@ ul, ol {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1.5rem 1rem;
+    padding: 0.5rem 1rem;
 }
 
 .header-logo img {
-    height: 80px;
+    height: 100px;
 }
 
 .header-nav {
