@@ -1,3 +1,7 @@
+.ftp-credentials
+.ftp-credentials*
+deploy-ftp.*
+
 # ===== Variáveis de ambiente / credenciais (NUNCA versionar) =====
 .env
 .env.*
@@ -55,3 +59,4 @@ $RECYCLE.BIN/
 *.sql
 *.zip
 *.tar.gz
+
