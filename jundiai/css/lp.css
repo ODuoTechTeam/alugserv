@@ -1,0 +1,1228 @@
+/* =========================================================
+   ALUGSERV / LANDING PAGE POR UNIDADE
+   Complemento de css/main.css (identidade visual oficial).
+   ========================================================= */
+
+:root {
+    /* Verde do WhatsApp oficial (#25D366), mais claro que o do site institucional */
+    --whatsapp: hsl(142, 70%, 49%);
+    --whatsapp-hover: hsl(142, 66%, 42%);
+
+    /* Altura do header, usada para dimensionar a hero */
+    --header-h: 92px;
+}
+
+@media (min-width: 480px) {
+    :root {
+        --header-h: 128px;
+    }
+}
+
+/* Nada de "estica" vertical (rubber band) ao chegar na hero ou no rodapé. */
+html,
+body {
+    overscroll-behavior-y: none;
+}
+
+/* Trava qualquer rolagem horizontal. `clip` (e não `hidden`) porque `hidden`
+   transformaria o body em contêiner de rolagem e quebraria o header sticky. */
+body {
+    overflow-x: clip;
+}
+
+/* Âncoras não podem ficar escondidas atrás do header fixo. */
+[id] {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+}
+
+/* ===== HEADER (unidade + CTA) ===== */
+.header-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+}
+
+.header-unit {
+    display: none;
+    flex-direction: column;
+    line-height: 1.15;
+    padding-left: 0.875rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    color: var(--primary-foreground);
+}
+
+.header-unit strong {
+    font-size: 1.125rem;
+    font-weight: 700;
+}
+
+.header-unit span {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.85;
+}
+
+/* A cidade é o argumento desta página: aparece no header já a partir de 360px. */
+@media (min-width: 360px) {
+    .header-unit {
+        display: flex;
+    }
+}
+
+@media (max-width: 479px) {
+    .header-unit strong {
+        font-size: 1rem;
+    }
+
+    .header-unit span {
+        font-size: 0.625rem;
+    }
+}
+
+.header-cta {
+    display: none;
+    margin-left: 1.5rem;
+    white-space: nowrap;
+}
+
+@media (min-width: 1024px) {
+    .header-cta {
+        display: inline-flex;
+    }
+}
+
+/* ===== NAVEGAÇÃO =====
+   Logo à esquerda, links centralizados no espaço que sobra, CTA à direita.
+   Abaixo de 1080px a barra não comporta os 5 links + botão sem amontoar,
+   então entra o menu sanduíche (que já tem o CTA do WhatsApp dentro). */
+.header .container {
+    gap: 1.5rem;
+    padding: 1.25rem 1.5rem;
+}
+
+.header-logo img {
+    height: 72px;
+}
+
+.header-nav,
+.header-cta {
+    display: none;
+}
+
+/* O main.css esconde o sanduíche a partir de 768px; aqui ele volta e só some
+   quando a barra completa realmente cabe. */
+.menu-toggle {
+    display: flex;
+}
+
+.header-nav a {
+    font-size: 0.8125rem;
+    letter-spacing: 0.03em;
+    white-space: nowrap;
+}
+
+.nav-separator {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.header-cta {
+    margin-left: 0;
+    flex-shrink: 0;
+    padding: 0.625rem 1.125rem;
+    font-size: 0.8125rem;
+}
+
+.header-cta svg {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+.cta-longo,
+.cta-curto {
+    display: none;
+}
+
+@media (min-width: 1080px) {
+    .header-nav {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        min-width: 0;
+    }
+
+    .header-cta {
+        display: inline-flex;
+    }
+
+    .menu-toggle {
+        display: none;
+    }
+
+    .header-nav ul,
+    .header-nav li {
+        gap: 0.75rem;
+    }
+
+    .cta-curto {
+        display: inline;
+    }
+}
+
+/* Telas largas: container maior, links maiores e o rótulo completo do CTA. */
+@media (min-width: 1400px) {
+    .header .container {
+        max-width: 1360px;
+        gap: 2rem;
+        padding: 1.5rem;
+    }
+
+    .header-logo img {
+        height: 80px;
+    }
+
+    .header-nav a {
+        font-size: 0.875rem;
+    }
+
+    .header-nav ul,
+    .header-nav li {
+        gap: 1.5rem;
+    }
+
+    .header-cta {
+        padding: 0.6875rem 1.375rem;
+        font-size: 0.875rem;
+    }
+
+    .cta-longo {
+        display: inline;
+    }
+
+    .cta-curto {
+        display: none;
+    }
+}
+
+
+
+/* ===== MENU MOBILE =====
+   Sobrepõe a hero em vez de empurrá-la para baixo. */
+.mobile-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100svh - var(--header-h));
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.25);
+    padding: 0.5rem 1rem 1.25rem;
+}
+
+.mobile-nav ul {
+    gap: 0;
+}
+
+.mobile-nav li:not(.mobile-nav-cta) a {
+    padding: 0.875rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mobile-nav-cta {
+    margin-top: 1rem;
+}
+
+/* `.mobile-nav a { display: block }` do main.css vence o `inline-flex` do
+   `.btn`, o que anulava a centralização. Aqui o flex é restabelecido. */
+.mobile-nav-cta .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.875rem 1rem;
+    text-align: center;
+}
+
+.mobile-nav-cta .btn svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+/* ===== HERO =====
+   Ocupa a tela abaixo do header, mas cresce se o conteúdo pedir:
+   min-height (nunca height) garante que nada seja cortado. */
+.hero-lp {
+    height: auto;
+    /* Preenche a tela abaixo do header, com teto para não virar um vazio
+       gigante em tablets em pé (viewport alto, conteúdo curto). */
+    min-height: min(calc(100vh - var(--header-h)), 760px);
+    min-height: min(calc(100svh - var(--header-h)), 760px);
+    padding: clamp(2rem, 5vh, 4rem) 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+}
+
+.hero-lp .hero-overlay {
+    background: linear-gradient(to right, rgba(169, 17, 42, 0.94), rgba(169, 17, 42, 0.72));
+}
+
+.hero-lp .container {
+    min-width: 0;
+}
+
+.hero-lp .hero-content {
+    max-width: 64rem;
+    min-width: 0;
+}
+
+/* Tipografia fluida: acompanha a largura sem quebrar em nenhum ponto. */
+.hero-lp h1 {
+    font-size: clamp(2.125rem, 5.6vw, 4.5rem);
+    line-height: 1.08;
+    margin-bottom: clamp(1rem, 2.5vh, 1.5rem);
+    overflow-wrap: break-word;
+}
+
+/* Duas linhas: "Locação de equipamentos" / "em <Cidade>".
+   A partir de 700px a primeira linha não quebra; abaixo disso ela pode
+   quebrar naturalmente, porque forçar uma linha só deixaria o título minúsculo. */
+.hero-lp h1 .hero-line,
+.hero-lp h1 .hero-city {
+    display: block;
+}
+
+@media (min-width: 700px) {
+    .hero-lp h1 .hero-line {
+        white-space: nowrap;
+    }
+}
+
+.hero-lp p {
+    font-size: clamp(1rem, 1.4vw, 1.25rem);
+    margin-bottom: clamp(1.25rem, 3vh, 2rem);
+}
+
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    background-color: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+    font-size: clamp(0.6875rem, 1.6vw, 0.8125rem);
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    margin-bottom: clamp(1rem, 2.5vh, 1.5rem);
+}
+
+.hero-badge svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+}
+
+.hero-lp h1 .hero-city {
+    text-decoration: underline;
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.14em;
+}
+
+.hero-lp .hero-buttons .btn {
+    flex: 0 1 auto;
+    text-align: center;
+}
+
+.hero-lp .btn-whatsapp svg {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+}
+
+.hero-trust {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem 2rem;
+    margin-top: clamp(1.5rem, 3.5vh, 2.25rem);
+    padding-top: clamp(1.125rem, 2.5vh, 1.75rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.28);
+}
+
+.hero-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-size: clamp(0.8125rem, 1.1vw, 0.9375rem);
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.hero-trust-item svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.hero-trust-item strong {
+    font-weight: 700;
+}
+
+/* Telas baixas (notebook 13", celular deitado): a hero para de tentar
+   preencher a altura e passa a caber pelo conteúdo. */
+@media (max-height: 700px) and (min-width: 768px) {
+    .hero-lp {
+        min-height: 0;
+        padding: 3rem 0;
+    }
+}
+
+/* ===== CATÁLOGO DE EQUIPAMENTOS ===== */
+.catalog-toolbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.875rem;
+    margin-bottom: 1.75rem;
+}
+
+.catalog-search {
+    position: relative;
+    width: 100%;
+    max-width: 32rem;
+}
+
+.catalog-search input {
+    font-family: inherit;
+    font-size: 1rem;
+    color: var(--foreground);
+    background-color: var(--background);
+    border: 1.5px solid var(--input);
+    border-radius: 9999px;
+    padding: 0.875rem 3rem 0.875rem 3rem;
+    width: 100%;
+    transition: var(--transition);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.catalog-search input::-webkit-search-decoration,
+.catalog-search input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.catalog-search input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(169, 17, 42, 0.1);
+}
+
+.catalog-search input::placeholder {
+    color: var(--muted-foreground);
+}
+
+.catalog-search-icon {
+    position: absolute;
+    top: 50%;
+    left: 1.125rem;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--primary);
+    pointer-events: none;
+}
+
+.catalog-search-clear {
+    position: absolute;
+    top: 50%;
+    right: 0.75rem;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--secondary);
+    color: var(--muted-foreground);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.catalog-search-clear:hover {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.catalog-search-clear svg {
+    width: 14px;
+    height: 14px;
+}
+
+/* O `display: flex` acima vence o atributo `hidden` do HTML; sem esta regra
+   o "x" apareceria mesmo com o campo de busca vazio. */
+.catalog-search-clear[hidden] {
+    display: none;
+}
+
+.catalog-count {
+    font-size: 0.875rem;
+    color: var(--muted-foreground);
+}
+
+/* Vazio (sem busca e sem filtro) não deve deixar um espaço sobrando. */
+.catalog-count:empty {
+    display: none;
+}
+
+.catalog-count strong {
+    color: var(--foreground);
+    font-weight: 600;
+}
+
+/* Filtros por categoria */
+.catalog-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    /* Só a categoria ativa usa o vinho da marca; as demais ficam em
+       cinza-escuro para o estado selecionado se destacar. */
+    color: hsl(0, 0%, 32%);
+    background-color: var(--background);
+    border: 1.5px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: var(--transition);
+}
+
+.filter-btn:hover {
+    border-color: var(--primary);
+    background-color: rgba(169, 17, 42, 0.06);
+    color: var(--foreground);
+}
+
+.filter-btn.active {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: var(--primary-foreground);
+}
+
+.filter-btn .count {
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.1875rem 0.4375rem;
+    border-radius: 9999px;
+    background-color: var(--secondary);
+    color: var(--muted-foreground);
+}
+
+.filter-btn.active .count {
+    background-color: rgba(255, 255, 255, 0.22);
+    color: var(--primary-foreground);
+}
+
+.filter-btn.is-empty {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+/* Grid: colunas iguais e linhas do mesmo tamanho */
+.equipment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    align-items: stretch;
+}
+
+@media (min-width: 768px) {
+    .equipment-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .equipment-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.equipment-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.equipment-item:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Área da imagem: altura fixa em todos os cards, imagem centralizada e sem distorção */
+.equipment-thumb {
+    position: relative;
+    flex: 0 0 auto;
+    height: 200px;
+    padding: 2.25rem 1rem 1rem;
+    background-color: #fff;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.equipment-thumb img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: var(--transition);
+}
+
+.equipment-item:hover .equipment-thumb img {
+    transform: scale(1.06);
+}
+
+.equipment-tag {
+    position: absolute;
+    top: 0.625rem;
+    left: 0.625rem;
+    max-width: calc(100% - 1.25rem);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+    color: var(--primary);
+    background-color: rgba(169, 17, 42, 0.1);
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Conteúdo: título e descrição com altura previsível, botão sempre no rodapé */
+.equipment-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1rem;
+}
+
+.equipment-body h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+    min-height: 2.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.equipment-body p {
+    font-size: 0.8125rem;
+    color: var(--muted-foreground);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    min-height: 4.65em;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.equipment-body .btn {
+    width: 100%;
+    margin-top: auto;
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+}
+
+.equipment-body .btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.catalog-more {
+    display: flex;
+    justify-content: center;
+    margin-top: 2.5rem;
+}
+
+.catalog-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.catalog-empty p {
+    color: var(--muted-foreground);
+    margin-bottom: 1.25rem;
+}
+
+/* ===== AVALIAÇÕES =====
+   Todos os cards do carrossel com a mesma altura e o mesmo alinhamento
+   interno, independentemente do tamanho do nome e do texto da avaliação. */
+/* Sem padding lateral, o recorte cai exatamente na borda dos 3 slides e não
+   sobra aquela tirinha do card seguinte aparecendo nas laterais. */
+.carousel-container {
+    padding: 0;
+}
+
+.carousel-track {
+    align-items: stretch;
+    /* O main.css soma `gap: 1rem` a slides de 33,333%, o que passa de 100% e
+       corta o último card. O respiro entre eles já vem do padding do slide,
+       então zerar o gap faz os 3 caberem inteiros e certinhos. */
+    gap: 0;
+}
+
+.carousel-slide {
+    display: flex;
+}
+
+.review-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.review-header {
+    align-items: flex-start;
+}
+
+/* Nome ocupa sempre a altura de duas linhas: as estrelas e o texto de todos
+   os cards começam na mesma altura, mesmo com nomes longos. */
+.review-info h4 {
+    line-height: 1.3;
+    min-height: 2.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.review-text {
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ===== NÚMEROS ===== */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    max-width: 64rem;
+    margin: 0 auto;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.stat-item strong {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--primary-foreground);
+}
+
+.stat-item span {
+    display: block;
+    margin-top: 0.375rem;
+    font-size: 0.9375rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+/* ===== LOCALIZAÇÃO ===== */
+.local-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: stretch;
+    max-width: 72rem;
+    margin: 0 auto;
+}
+
+@media (min-width: 900px) {
+    .local-grid {
+        grid-template-columns: 1.1fr 1fr;
+    }
+}
+
+.local-map {
+    min-height: 380px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.local-map iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 380px;
+    border: 0;
+}
+
+.local-info {
+    background-color: var(--card);
+    border: 2px solid var(--primary);
+    border-radius: var(--radius);
+    padding: 2rem;
+}
+
+.local-info h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+.local-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin-bottom: 1.75rem;
+}
+
+.local-list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+}
+
+.local-list-item svg {
+    width: 22px;
+    height: 22px;
+    color: var(--primary);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.local-list-item strong {
+    display: block;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--muted-foreground);
+    margin-bottom: 0.125rem;
+}
+
+.local-list-item p,
+.local-list-item a {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.local-list-item a:hover {
+    color: var(--primary);
+}
+
+.local-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+@media (min-width: 480px) {
+    .local-actions {
+        flex-direction: row;
+    }
+
+    .local-actions .btn {
+        flex: 1;
+    }
+}
+
+/* ===== ÁREAS ATENDIDAS ===== */
+.areas-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.625rem;
+    max-width: 60rem;
+    margin: 0 auto;
+}
+
+.areas-list span {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--foreground);
+    background-color: var(--background);
+    border: 1px solid var(--border);
+    border-radius: 9999px;
+    padding: 0.5rem 1.125rem;
+}
+
+/* ===== FOOTER (unidade em destaque) ===== */
+.footer-unit-tag {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 9999px;
+    padding: 0.25rem 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.footer-contact-item div p,
+.footer-description,
+.footer-nav a {
+    overflow-wrap: break-word;
+}
+
+/* ===== BOTÃO FLUTUANTE DO WHATSAPP (pulsando) ===== */
+.whatsapp-float {
+    animation: wa-bounce 2.6s ease-in-out infinite;
+}
+
+/* Anel que expande e some, dando o efeito de pulso */
+.whatsapp-float::before,
+.whatsapp-float::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--whatsapp);
+    z-index: -1;
+    animation: wa-pulse 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.whatsapp-float::after {
+    animation-delay: 1.3s;
+}
+
+.whatsapp-float:hover {
+    animation-play-state: paused;
+}
+
+@keyframes wa-pulse {
+    0%   { transform: scale(1);   opacity: 0.55; }
+    70%  { transform: scale(1.9); opacity: 0; }
+    100% { transform: scale(1.9); opacity: 0; }
+}
+
+@keyframes wa-bounce {
+    0%, 100%   { transform: scale(1); }
+    12%        { transform: scale(1.08); }
+    24%        { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .whatsapp-float,
+    .whatsapp-float::before,
+    .whatsapp-float::after {
+        animation: none;
+    }
+
+    .whatsapp-float::before,
+    .whatsapp-float::after {
+        display: none;
+    }
+}
+
+/* ===== AJUSTES RESPONSIVOS =====
+   Cada faixa foi conferida em 320, 360, 390, 430, 500, 640, 768, 900,
+   1024, 1280, 1440 e 1920px. */
+
+/* Tablet e abaixo */
+@media (max-width: 1023px) {
+    .partners-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .partner-card img {
+        max-height: 96px;
+    }
+}
+
+/* Celular grande e abaixo */
+@media (max-width: 767px) {
+    section {
+        padding: 3rem 0;
+    }
+
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .section-subtitle {
+        margin-bottom: 2rem;
+    }
+
+    .hero-lp {
+        min-height: 0;
+        padding: 3rem 0;
+    }
+
+    .hero-trust {
+        gap: 0.75rem 1.5rem;
+    }
+
+    .hero-lp .hero-buttons .btn {
+        width: 100%;
+    }
+
+    .local-info {
+        padding: 1.5rem;
+    }
+
+    .local-map,
+    .local-map iframe {
+        min-height: 280px;
+    }
+
+    .stat-item strong {
+        font-size: 2rem;
+    }
+
+    .equipment-thumb {
+        height: 168px;
+    }
+
+    .cta-section h2 {
+        font-size: 1.625rem;
+    }
+
+    .cta-section p {
+        font-size: 1.0625rem;
+    }
+
+    .about-content h2,
+    .footer-column h3 {
+        font-size: 1.5rem;
+    }
+
+    .footer-column h3 {
+        font-size: 1.125rem;
+    }
+
+    .whatsapp-float {
+        bottom: 16px;
+        right: 16px;
+        width: 54px;
+        height: 54px;
+    }
+
+    .whatsapp-float svg {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Celular */
+@media (max-width: 479px) {
+    .header .container {
+        padding: 1rem;
+    }
+
+    .header-logo img {
+        height: 60px;
+    }
+
+    .header-logo {
+        gap: 0.625rem;
+    }
+
+    .header-unit {
+        padding-left: 0.625rem;
+    }
+
+    /* Filtros viram uma faixa deslizável para não quebrar em muitas linhas */
+    .catalog-filters {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        gap: 0.5rem;
+        margin: 0 -1rem 2rem;
+        padding: 0 1rem 0.5rem;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .catalog-filters::-webkit-scrollbar {
+        display: none;
+    }
+
+    .filter-btn {
+        font-size: 0.8125rem;
+        padding: 0.4375rem 0.875rem;
+    }
+
+    .equipment-thumb {
+        height: 150px;
+        padding: 2rem 0.75rem 0.75rem;
+    }
+
+    .equipment-body {
+        padding: 0.875rem;
+    }
+
+    .equipment-body h3 {
+        font-size: 0.9375rem;
+    }
+
+    .catalog-search input {
+        font-size: 0.9375rem;
+        padding: 0.75rem 2.75rem;
+    }
+
+    .areas-list {
+        gap: 0.5rem;
+    }
+
+    .areas-list span {
+        font-size: 0.8125rem;
+        padding: 0.4375rem 0.875rem;
+    }
+
+    .partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .partner-card {
+        padding: 1rem;
+    }
+
+    .about-images img {
+        height: 180px;
+    }
+}
+
+/* Celular pequeno (320px) */
+@media (max-width: 359px) {
+    .equipment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .equipment-thumb {
+        height: 180px;
+    }
+
+    .header-unit strong {
+        font-size: 1rem;
+    }
+
+    .btn-lg {
+        padding: 0.875rem 1.25rem;
+        font-size: 1rem;
+    }
+}
+
+/* ===== TELAS DE TOQUE =====
+   Em celular/tablet o :hover "gruda" depois do toque e o card fica ampliado.
+   Aqui todos os efeitos de hover são neutralizados quando não há mouse. */
+@media (hover: none) {
+    .category-card:hover,
+    .category-card:hover .category-image img,
+    .equipment-item:hover,
+    .equipment-item:hover .equipment-thumb img,
+    .product-card:hover,
+    .product-card:hover .product-image img,
+    .footer-social a:hover,
+    .footer-nav a:hover,
+    .whatsapp-float:hover {
+        transform: none;
+    }
+
+    .card:hover,
+    .equipment-item:hover,
+    .partner-card:hover,
+    .product-card:hover {
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+
+    .equipment-item:hover {
+        border-color: var(--border);
+    }
+
+    .filter-btn:hover {
+        border-color: var(--border);
+        background-color: var(--background);
+        color: hsl(0, 0%, 32%);
+    }
+
+    .filter-btn.active:hover {
+        border-color: var(--primary);
+        background-color: var(--primary);
+        color: var(--primary-foreground);
+    }
+
+    .catalog-search-clear:hover {
+        background-color: var(--secondary);
+        color: var(--muted-foreground);
+    }
+
+    .whatsapp-float:hover {
+        background-color: var(--whatsapp);
+        animation-play-state: running;
+    }
+
+    .btn-whatsapp:hover {
+        background-color: var(--whatsapp);
+    }
+
+    .btn-primary:hover {
+        background-color: var(--primary);
+    }
+
+    .btn-secondary:hover {
+        background-color: var(--secondary);
+    }
+
+    .btn-outline:hover {
+        background-color: transparent;
+    }
+
+    /* O toque continua dando retorno visual, só que na hora do clique. */
+    .category-card:active,
+    .equipment-item:active {
+        transform: scale(0.985);
+    }
+}
